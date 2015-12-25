@@ -24,8 +24,11 @@ def convert_pdf_to_txt(path):
     maxpages = 0
     caching = True
     pagenos=set()
-    for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
-        interpreter.process_page(page)
+    try:
+        for page in PDFPage.get_pages(fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True):
+            interpreter.process_page(page)
+    except Exception as e:
+        pass
     fp.close()
     device.close()
     text_string = retstr.getvalue()
